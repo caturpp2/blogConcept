@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +20,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $posts = Post::all();
+    return view('dashboard', compact('posts'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
@@ -31,3 +34,20 @@ Route::get('/post', function () {
 Route::get('/detail', function () {
     return view('page.detail');
 })->name('detail');
+
+
+
+// Route::get('/post', [PostController::class, 'index']);
+// Route::get('/popst/create', [PostController::class, 'create']);
+Route::post('/store', [PostController::class, 'store']);
+
+
+
+
+
+// Route::get('/user',[UserController::class, 'index'])->name('user');
+// Route::get('/user/create',[UserController::class, 'create']);
+// Route::post('/user/store',[UserController::class, 'store']);
+// Route::get('/user/{id}/edit',[UserController::class, 'edit']);
+// Route::put('/user/{id}',[UserController::class, 'update']);
+// Route::delete('/user/{id}',[UserController::class, 'destroy']);
